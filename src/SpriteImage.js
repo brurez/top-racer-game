@@ -9,7 +9,7 @@ class SpriteImage {
 
   // xPos and yPos = position where the sprite should be drawn,
   // scale = rescaling factor between 0 and 1
-  _draw(ctx, xPos, yPos, scale) {
+  draw(ctx, xPos, yPos, scale) {
     ctx.drawImage(
       this.img,
       this.x,

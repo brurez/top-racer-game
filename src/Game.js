@@ -1,5 +1,9 @@
 import Input from "./Input";
 import Timer from "./Timer";
+import Player from './Player';
+
+import audi from './images/Topdown_vehicle_sprites_pack/Audi.png'
+import Load from './Load';
 
 const GAME_STATE = {
   MAIN_MENU: 0,
@@ -31,10 +35,18 @@ class Game {
     // Create the different key and mouse listeners
     Input.addListeners(this.inputStates, this.canvas);
 
-    // We create tge balls: try to change the parameter
-    //createBalls(nbBalls);
+    this.player = new Player(this.ctx, this.inputStates);
 
-    requestAnimationFrame(this.mainLoop.bind(this));
+    this.loadAssets(images => {
+      this.player.setImage(images[audi], 0, 0, 256, 256);
+      requestAnimationFrame(this.mainLoop.bind(this));
+    });
+  }
+
+  loadAssets(cb) {
+    Load.images(
+      audi
+    ).then( images => cb(images));
   }
 
   clearCanvas() {
@@ -44,9 +56,11 @@ class Game {
 
   mainLoop(time) {
     // number of ms since last frame draw
-    const delta = Timer.getDelta(time);
+    const dt = Timer.getDelta(time);
 
     this.clearCanvas();
+
+    this.player.update(dt);
 
     switch (this.currentGameState) {
       case GAME_STATE.RUNNING:

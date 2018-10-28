@@ -1,6 +1,8 @@
 import SpriteImage from './SpriteImage';
 
 class Road {
+  static LANE_CENTER = [220, 344, 476];
+
   constructor(ctx, inputStates) {
     this.ctx = ctx;
     this.inputStates = inputStates;

@@ -6,10 +6,6 @@ class Player {
   constructor(ctx, inputStates) {
     this.ctx = ctx;
     this.inputStates = inputStates;
-    this.speed = {
-      x: 0,
-      y: 0
-    };
     this.position = {
       x: 0,
       y: 0

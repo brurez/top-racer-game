@@ -1,9 +1,11 @@
 import Input from "./Input";
 import Timer from "./Timer";
-import Player from './Player';
+import Player from "./Player";
+import Load from "./Load";
 
-import audi from './images/Topdown_vehicle_sprites_pack/Audi.png'
-import Load from './Load';
+import audi from "./images/Topdown_vehicle_sprites_pack/Audi.png";
+import road from "./images/road.png";
+import Road from './Road';
 
 const GAME_STATE = {
   MAIN_MENU: 0,
@@ -35,19 +37,20 @@ class Game {
     Input.listen(this.inputStates, this.canvas);
 
     this.player = new Player(this.ctx, this.inputStates);
-
+    this.road = new Road(this.ctx, this.inputStates);
 
     this.loadAssets(images => {
       this.player.setImage(images[audi], 79, 24, 96, 216);
       this.player.moveToStartPosition();
+
+      this.road.setImage(images[road], 0, 0, 840, 650);
+
       requestAnimationFrame(this.mainLoop.bind(this));
     });
   }
 
   loadAssets(cb) {
-    Load.images(
-      audi
-    ).then( images => cb(images));
+    Load.images(audi, road).then(images => cb(images));
   }
 
   clearCanvas() {
@@ -61,9 +64,10 @@ class Game {
 
     this.clearCanvas();
 
-    this.ctx.fillStyle = 'green';
+    this.ctx.fillStyle = "green";
     this.ctx.fillRect(0, 0, 100, 100);
 
+    this.road.update(dt);
     this.player.update(dt);
 
     switch (this.currentGameState) {

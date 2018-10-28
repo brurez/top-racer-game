@@ -31,14 +31,15 @@ class Game {
     this.ctx = this.canvas.getContext("2d");
     // default police for text
     this.ctx.font = "20px Arial";
-
     // Create the different key and mouse listeners
-    Input.addListeners(this.inputStates, this.canvas);
+    Input.listen(this.inputStates, this.canvas);
 
     this.player = new Player(this.ctx, this.inputStates);
 
+
     this.loadAssets(images => {
-      this.player.setImage(images[audi], 0, 0, 256, 256);
+      this.player.setImage(images[audi], 79, 24, 96, 216);
+      this.player.moveToStartPosition();
       requestAnimationFrame(this.mainLoop.bind(this));
     });
   }
@@ -59,6 +60,9 @@ class Game {
     const dt = Timer.getDelta(time);
 
     this.clearCanvas();
+
+    this.ctx.fillStyle = 'green';
+    this.ctx.fillRect(0, 0, 100, 100);
 
     this.player.update(dt);
 

@@ -9,7 +9,7 @@ const getMousePos = (e, canvas) => {
 
 const addWindowListeners = (inputStates) => {
   //add the listener to the main, window object, and update the states
-  window.addEventListener('keydown', function (event) {
+  document.addEventListener('keydown', function (event) {
     if (event.keyCode === 37) {
       inputStates.left = true;
     } else if (event.keyCode === 38) {
@@ -24,7 +24,7 @@ const addWindowListeners = (inputStates) => {
   }, false);
 
   //if the key will be released, change the states object
-  window.addEventListener('keyup', function (event) {
+  document.addEventListener('keyup', function (event) {
     if (event.keyCode === 37) {
       inputStates.left = false;
     } else if (event.keyCode === 38) {
@@ -56,7 +56,7 @@ const addCanvasListeners = (inputStates, canvas) => {
 };
 
 const Input = {
-  addListeners(inputStates = {}, canvas) {
+  listen(inputStates = {}, canvas) {
     addWindowListeners(inputStates);
     addCanvasListeners(inputStates, canvas);
   }  

@@ -13,7 +13,7 @@ class SpriteImage {
     ctx.drawImage(
       this.img,
       this.x,
-      this.y, // x, y, width and height of img to extract
+      this.y,
       this.width,
       this.height,
       xPos,

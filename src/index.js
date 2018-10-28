@@ -3,5 +3,5 @@ import Game from './Game'
 
 window.onload = function init() {
   const game = new Game();
-  game.start(document.querySelector('#root'));
+  game.start(document.querySelector('canvas'));
 };

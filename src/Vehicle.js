@@ -15,10 +15,12 @@ class Vehicle {
     this.sprite = new SpriteImage(img, ...args);
   }
 
-  moveToStartPosition() {
-    this.lane = Vehicle.getRandomInt(0, Road.LANE_CENTER.length - 1);
+  moveToStartPosition(startOffset) {
+    const sOff = startOffset || this.startOffset;
+    this.lane = Vehicle.getRandomInt(0, Road.LANE_CENTER.length);
     const { height: sH, width: sW } = this.sprite;
-    this.position = { x: Road.LANE_CENTER[this.lane] - sW / 2, y: -sH };
+    this.position = { x: Road.LANE_CENTER[this.lane] - sW / 2, y: -(sH + sOff) };
+    this.startOffset = sOff;
   }
 
   update(dt) {

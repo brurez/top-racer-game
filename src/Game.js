@@ -1,13 +1,15 @@
 import Input from "./Input";
 import Timer from "./Timer";
 import Player from "./Player";
-import Road from './Road';
+import Road from "./Road";
 import Load from "./Load";
+import Vehicle from "./Vehicle";
 
 import audi from "./images/Topdown_vehicle_sprites_pack/Audi.png";
-import truck from './images/Topdown_vehicle_sprites_pack/truck.png';
+import truck from "./images/Topdown_vehicle_sprites_pack/truck.png";
 import road from "./images/road.png";
-import Vehicle from './Car';
+import taxi from "./images/Topdown_vehicle_sprites_pack/taxi.png";
+import car from "./images/Topdown_vehicle_sprites_pack/Car.png";
 
 const GAME_STATE = {
   MAIN_MENU: 0,
@@ -40,22 +42,35 @@ class Game {
 
     this.player = new Player(this.ctx, this.inputStates);
     this.road = new Road(this.ctx, this.inputStates);
+
     this.truck = new Vehicle(this.ctx);
+    this.taxi = new Vehicle(this.ctx);
+    this.car = new Vehicle(this.ctx);
 
     this.loadAssets(images => {
       this.player.setImage(images[audi], 78, 24, 96, 216);
       this.road.setImage(images[road], 0, 0, 840, 650);
       this.truck.setImage(images[truck], 78, 24, 96, 216);
+      this.car.setImage(images[car], 78, 24, 96, 216);
+      this.taxi.setImage(images[taxi], 72, 18, 102, 220);
+
+      this.car.scale = 0.79;
+      this.taxi.scale = 0.68;
 
       this.player.moveToStartPosition();
-      this.truck.moveToStartPosition();
+      this.taxi.moveToStartPosition(200);
+      this.truck.moveToStartPosition(450);
+      this.car.moveToStartPosition(700);
+
+      this.truck.speed.y = 0.12;
+      this.taxi.speed.y = 0.09;
 
       requestAnimationFrame(this.mainLoop.bind(this));
     });
   }
 
   loadAssets(cb) {
-    Load.images(audi, road, truck).then(images => cb(images));
+    Load.images(audi, road, truck, taxi, car).then(images => cb(images));
   }
 
   clearCanvas() {
@@ -75,6 +90,8 @@ class Game {
     this.road.update(dt);
     this.player.update(dt);
     this.truck.update(dt);
+    this.taxi.update(dt);
+    this.car.update(dt);
 
     switch (this.currentGameState) {
       case GAME_STATE.RUNNING:

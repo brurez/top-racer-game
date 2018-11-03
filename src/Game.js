@@ -4,7 +4,6 @@ import Player from "./Player";
 import Road from "./Road";
 import Load from "./Load";
 import Vehicle from "./Vehicle";
-import collision from "./collision";
 
 import audi from "./images/Topdown_vehicle_sprites_pack/Audi.png";
 import truck from "./images/Topdown_vehicle_sprites_pack/truck.png";
@@ -19,6 +18,12 @@ const GAME_STATE = {
 };
 
 const TIME_BETWEEN_LEVELS = 5000; // 5 seconds
+
+const INITIAL_SPEED = {
+  TRUCK: 0.12,
+  CAR: 0.09,
+  TAXI: 0.1
+};
 
 class Game {
   constructor() {
@@ -58,16 +63,21 @@ class Game {
       this.car.scale = 0.79;
       this.taxi.scale = 0.68;
 
-      this.player.moveToStartPosition();
-      this.taxi.moveToStartPosition(200);
-      this.truck.moveToStartPosition(450);
-      this.car.moveToStartPosition(700);
-
-      this.truck.speed.y = 0.12;
-      this.taxi.speed.y = 0.09;
+      this.setEntitiesOnStartPosition();
 
       requestAnimationFrame(this.mainLoop.bind(this));
     });
+  }
+
+  setEntitiesOnStartPosition() {
+    this.player.moveToStartPosition();
+    this.taxi.moveToStartPosition(200);
+    this.truck.moveToStartPosition(450);
+    this.car.moveToStartPosition(700);
+
+    this.truck.speed.y = INITIAL_SPEED.TRUCK;
+    this.taxi.speed.y = INITIAL_SPEED.TAXI;
+    this.car.speed.y = INITIAL_SPEED.CAR;
   }
 
   loadAssets(cb) {
@@ -79,10 +89,7 @@ class Game {
     this.ctx.clearRect(0, 0, width, height);
   }
 
-  mainLoop(time) {
-    // number of ms since last frame draw
-    const dt = Timer.getDelta(time);
-
+  running(dt) {
     this.clearCanvas();
 
     this.ctx.fillStyle = "green";
@@ -94,16 +101,30 @@ class Game {
     this.taxi.update(dt);
     this.car.update(dt);
 
-    if (
-      collision(this.player, this.truck) ||
-      collision(this.player, this.taxi) ||
-      collision(this.player, this.car)
-    ) {
+    this.displayScore();
+
+    this.currentLevelTime -= dt;
+
+    if (this.player.checkCollision(this.truck, this.taxi, this.car)) {
       this.currentGameState = GAME_STATE.GAME_OVER;
     }
+  }
+
+  gameOver() {
+    this.ctx.fillText("GAME OVER", 50, 100);
+    this.ctx.fillText("Press SPACE to start again", 50, 150);
+    this.ctx.fillText("Move with arrow keys", 50, 200);
+    this.ctx.fillText("Survive 5 seconds for next level", 50, 250);
+  }
+
+  mainLoop(time) {
+    // number of ms since last frame draw
+    const dt = Timer.getDelta(time);
 
     switch (this.currentGameState) {
       case GAME_STATE.RUNNING:
+        this.running(dt);
+
         if (this.currentLevelTime < 0) {
           this.goToNextLevel();
         }
@@ -113,11 +134,8 @@ class Game {
         // TO DO !
         break;
       case GAME_STATE.GAME_OVER:
-        this.ctx.fillText("GAME OVER", 50, 100);
-        this.ctx.fillText("Press SPACE to start again", 50, 150);
-        this.ctx.fillText("Move with arrow keys", 50, 200);
-        this.ctx.fillText("Survive 5 seconds for next level", 50, 250);
-
+        this.gameOver();
+        if (this.inputStates.space) this.startNewGame();
         break;
       default:
         break;
@@ -129,22 +147,26 @@ class Game {
 
   goToNextLevel() {
     // reset time available for next level
-    // 5 seconds in this example
-    this.currentLevelTime = 5000;
+    this.currentLevelTime = TIME_BETWEEN_LEVELS;
     this.currentLevel++;
-    // Add two balls per level
+
+    this.road.speed *= 1.2;
+    this.truck.speed.y *= 1.2;
+    this.car.speed.y *= 1.2;
+    this.taxi.speed.y *= 1.2;
   }
 
   startNewGame() {
-    this.currentLevelTime = 5000;
+    this.currentLevelTime = TIME_BETWEEN_LEVELS;
     this.currentLevel = 1;
     this.currentGameState = GAME_STATE.RUNNING;
+    this.setEntitiesOnStartPosition();
   }
 
   displayScore() {
     const { ctx, currentLevel, currentLevelTime } = this;
     ctx.save();
-    ctx.fillStyle = "Green";
+    ctx.fillStyle = "White";
     ctx.fillText("Level: " + currentLevel, 300, 30);
     ctx.fillText("Time: " + (currentLevelTime / 1000).toFixed(1), 300, 60);
     ctx.restore();

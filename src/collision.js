@@ -1,5 +1,3 @@
-import SpriteImage from "./SpriteImage";
-
 const Strategy = {
   circles(x1, y1, r1, x2, y2, r2) {
     const dx = x1 - x2;

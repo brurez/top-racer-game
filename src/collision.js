@@ -1,4 +1,6 @@
-const Collision = {
+import SpriteImage from "./SpriteImage";
+
+const Strategy = {
   circles(x1, y1, r1, x2, y2, r2) {
     const dx = x1 - x2;
     const dy = y1 - y2;
@@ -6,9 +8,9 @@ const Collision = {
   },
 
   // Collisions between rectangle
-  rectangles(x0, y0, w0, h0, x2, y2, w2, h2) {
-    if (x0 > x2 + w2 || x0 + w0 < x2) return false;
-    if (y0 > y2 + h2 || y0 + h0 < y2) return false;
+  rectangles(x1, y1, w1, h1, x2, y2, w2, h2, e = 0) {
+    if (x1 > x2 + w2 + e || x1 + w1 + e < x2) return false;
+    if (y1 > y2 + h2 + e || y1 + h1 + e < y2) return false;
     return true;
   },
 
@@ -26,4 +28,14 @@ const Collision = {
   }
 };
 
-export default Collision;
+const collision = (entity1, entity2, extra = 0) => {
+  const { height: h1, width: w1 } = entity1;
+  const { height: h2, width: w2 } = entity2;
+
+  const { x: x1, y: y1 } = entity1.position;
+  const { x: x2, y: y2 } = entity2.position;
+
+  return Strategy.rectangles(x1, y1, w1, h1, x2, y2, w2, h2, extra);
+};
+
+export default collision;

@@ -4,6 +4,7 @@ import Player from "./Player";
 import Road from "./Road";
 import Load from "./Load";
 import Vehicle from "./Vehicle";
+import collision from "./collision";
 
 import audi from "./images/Topdown_vehicle_sprites_pack/Audi.png";
 import truck from "./images/Topdown_vehicle_sprites_pack/truck.png";
@@ -92,6 +93,14 @@ class Game {
     this.truck.update(dt);
     this.taxi.update(dt);
     this.car.update(dt);
+
+    if (
+      collision(this.player, this.truck) ||
+      collision(this.player, this.taxi) ||
+      collision(this.player, this.car)
+    ) {
+      this.currentGameState = GAME_STATE.GAME_OVER;
+    }
 
     switch (this.currentGameState) {
       case GAME_STATE.RUNNING:

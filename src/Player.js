@@ -13,6 +13,14 @@ class Player {
     this.scale = 0.7;
   }
 
+  get height() {
+    return this.sprite.height * this.scale;
+  }
+
+  get width() {
+    return this.sprite.width * this.scale;
+  }
+
   setImage(img, ...args) {
     this.sprite = new SpriteImage(img, ...args);
   }

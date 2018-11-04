@@ -24,15 +24,15 @@ self.__precacheManifest = [
     "url": "/top-racer-game/static/js/runtime~main.8791cae5.js"
   },
   {
-    "revision": "91927030b20c6d7fea0d",
-    "url": "/top-racer-game/static/js/main.91927030.chunk.js"
+    "revision": "de9c6f18127040fff2ca",
+    "url": "/top-racer-game/static/js/main.de9c6f18.chunk.js"
   },
   {
-    "revision": "91927030b20c6d7fea0d",
+    "revision": "de9c6f18127040fff2ca",
     "url": "/top-racer-game/static/css/main.e5c1c75d.chunk.css"
   },
   {
-    "revision": "f0658657b259a6c82686610523bd301c",
+    "revision": "cebb3b0b260548a234977d615fb425ca",
     "url": "/top-racer-game/index.html"
   }
 ];

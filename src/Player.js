@@ -27,7 +27,7 @@ class Player {
   }
 
   checkCollision(...entities) {
-    return !!entities.find(ent => collision(this, ent));
+    return !!entities.find(ent => collision(this, ent, -20));
   }
 
   moveToStartPosition() {

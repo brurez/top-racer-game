@@ -4,13 +4,13 @@ import Player from "./Player";
 import Road from "./Road";
 import Load from "./Load";
 import Vehicle from "./Vehicle";
+import collision from "./collision";
 
 import audi from "./images/Topdown_vehicle_sprites_pack/Audi.png";
 import truck from "./images/Topdown_vehicle_sprites_pack/truck.png";
 import road from "./images/road.png";
 import taxi from "./images/Topdown_vehicle_sprites_pack/taxi.png";
 import car from "./images/Topdown_vehicle_sprites_pack/Car.png";
-import collision from "./collision";
 
 const TIME_BETWEEN_LEVELS = 5000;
 
@@ -35,6 +35,16 @@ class Game {
     this.currentGameState = GAME_STATE.RUNNING;
     this.currentLevel = 1;
     this.currentLevelTime = TIME_BETWEEN_LEVELS;
+  }
+
+  static checkCollision(entity1, entity2) {
+    if (collision(entity1, entity2, 20)) {
+      if (collision(entity1, entity2)) {
+        entity1.moveToStartPosition();
+      } else {
+        entity1.speed = { ...entity2.speed };
+      }
+    }
   }
 
   loadAssets(cb) {
@@ -114,24 +124,28 @@ class Game {
     Game.checkCollision(this.taxi, this.truck);
   }
 
-  static checkCollision(entity1, entity2) {
-    if (collision(entity1, entity2, 20)) {
-      if (collision(entity1, entity2)) {
-        entity1.moveToStartPosition();
-      } else {
-        entity1.speed = { ...entity2.speed };
-      }
-    }
-  }
-
   gameOver() {
-    const { width: cW } = this.ctx.canvas;
+    const pad = 100;
+    const tOff = 150;
+    const line = 50;
+
+    const { width: cW, height: cH } = this.ctx.canvas;
     this.ctx.save();
-    this.ctx.fillStyle = "White";
-    this.ctx.fillText("GAME OVER", cW / 2, 100);
-    this.ctx.fillText("Press SPACE to start again", cW / 2, 150);
-    this.ctx.fillText("Move with arrow keys", cW / 2, 200);
-    this.ctx.fillText("Survive 5 seconds for next level", cW / 2, 250);
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    this.ctx.fillRect(pad, 50, cW - pad * 2, cH - pad);
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("GAME OVER", cW / 2 - tOff, pad + line);
+    this.ctx.fillText(
+      "Press SPACE to start again",
+      cW / 2 - tOff,
+      pad + line * 2
+    );
+    this.ctx.fillText("Move with arrow keys", cW / 2 - tOff, pad + line * 3);
+    this.ctx.fillText(
+      `Survive ${TIME_BETWEEN_LEVELS / 1000} seconds for next level`,
+      cW / 2 - tOff,
+      pad + line * 4
+    );
     this.ctx.restore();
   }
 

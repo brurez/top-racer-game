@@ -11,6 +11,7 @@ import truck from "./images/Topdown_vehicle_sprites_pack/truck.png";
 import road from "./images/road.png";
 import taxi from "./images/Topdown_vehicle_sprites_pack/taxi.png";
 import car from "./images/Topdown_vehicle_sprites_pack/Car.png";
+import explosion from './images/exp2_0.png';
 
 const TIME_BETWEEN_LEVELS = 5000;
 
@@ -48,7 +49,7 @@ class Game {
   }
 
   loadAssets(cb) {
-    Load.images(audi, road, truck, taxi, car).then(images => cb(images));
+    Load.images(audi, road, truck, taxi, car, explosion).then(images => cb(images));
   }
 
   start(canvasElement) {
@@ -71,6 +72,7 @@ class Game {
 
     this.loadAssets(images => {
       this.player.setImage(images[audi], 78, 24, 96, 216);
+      this.player.setExplosion(images[explosion]);
       this.road.setImage(images[road], 0, 0, 840, 650);
       this.truck.setImage(images[truck], 78, 24, 96, 216);
       this.car.setImage(images[car], 78, 24, 96, 216);

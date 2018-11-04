@@ -1,5 +1,9 @@
 import SpriteImage from "./SpriteImage";
 import collision from "./collision";
+import SpriteAnimation from "./SpriteAnimation";
+
+const RUNNING = "running";
+const EXPLODING = "exploding";
 
 class Player {
   static maxSpeed = 0.5;
@@ -12,6 +16,7 @@ class Player {
       y: 0
     };
     this.scale = 0.7;
+    this.state = RUNNING;
   }
 
   get height() {
@@ -24,6 +29,11 @@ class Player {
 
   setImage(img, ...args) {
     this.sprite = new SpriteImage(img, ...args);
+  }
+
+  setExplosion(img) {
+    this.explosion = new SpriteAnimation();
+    this.explosion.extractSprites(img, 16, 10, 64, 64);
   }
 
   checkCollision(...entities) {
@@ -43,14 +53,30 @@ class Player {
   }
 
   update(dt) {
-    if (this.inputStates.left) {
-      this.position.x += -Player.maxSpeed * dt;
-    }
-    if (this.inputStates.right) {
-      this.position.x += Player.maxSpeed * dt;
-    }
+    switch (this.state) {
+      case RUNNING:
+        if (this.inputStates.left) {
+          this.position.x += -Player.maxSpeed * dt;
+        }
+        if (this.inputStates.right) {
+          this.position.x += Player.maxSpeed * dt;
+        }
 
-    this.sprite.draw(this.ctx, this.position.x, this.position.y, this.scale);
+        this.sprite.draw(
+          this.ctx,
+          this.position.x,
+          this.position.y,
+          this.scale
+        );
+        break;
+        
+      case EXPLODING:
+        this.explosion.draw(this.ctx, 100, 100);
+        break;
+
+      default:
+        break;
+    }
   }
 }
 

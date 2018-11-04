@@ -17,12 +17,13 @@ const GAME_STATE = {
   GAME_OVER: 2
 };
 
-const TIME_BETWEEN_LEVELS = 5000; // 5 seconds
+const TIME_BETWEEN_LEVELS = 20000; // 5 seconds
 
 const INITIAL_SPEED = {
   TRUCK: 0.12,
   CAR: 0.09,
-  TAXI: 0.1
+  TAXI: 0.1,
+  ROAD: 0.5
 };
 
 class Game {
@@ -75,6 +76,7 @@ class Game {
     this.truck.moveToStartPosition(450);
     this.car.moveToStartPosition(700);
 
+    this.road.speed.y = INITIAL_SPEED.ROAD;
     this.truck.speed.y = INITIAL_SPEED.TRUCK;
     this.taxi.speed.y = INITIAL_SPEED.TAXI;
     this.car.speed.y = INITIAL_SPEED.CAR;
@@ -150,10 +152,12 @@ class Game {
     this.currentLevelTime = TIME_BETWEEN_LEVELS;
     this.currentLevel++;
 
-    this.road.speed *= 1.2;
-    this.truck.speed.y *= 1.2;
-    this.car.speed.y *= 1.2;
-    this.taxi.speed.y *= 1.2;
+    const difficult = 1.2;
+
+    this.road.speed.y *= difficult;
+    this.truck.speed.y *= difficult;
+    this.car.speed.y *= difficult;
+    this.taxi.speed.y *= difficult;
   }
 
   startNewGame() {

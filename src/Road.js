@@ -6,7 +6,10 @@ class Road {
   constructor(ctx, inputStates) {
     this.ctx = ctx;
     this.inputStates = inputStates;
-    this.speed = 0.5;
+    this.speed = {
+      x: 0,
+      y: 0.5,
+    };
     this.totalSeconds = 0;
   }
 
@@ -19,7 +22,7 @@ class Road {
     const { height: sH, width: sW } = this.sprite;
     this.totalSeconds += dt;
     const numImages = Math.ceil(cW / sW) + 1;
-    const yPos = this.totalSeconds * this.speed % sH;
+    const yPos = this.totalSeconds * this.speed.y % sH;
 
     this.ctx.save();
     this.ctx.translate(0, yPos);

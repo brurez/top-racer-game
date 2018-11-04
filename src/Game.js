@@ -48,7 +48,7 @@ class Game {
     // important, we will draw with this object
     this.ctx = this.canvas.getContext("2d");
     // default police for text
-    this.ctx.font = "22px Consola";
+    this.ctx.font = "22px Arial";
     // Create the different key and mouse listeners
     Input.listen(this.inputStates, this.canvas);
 

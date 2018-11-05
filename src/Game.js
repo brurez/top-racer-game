@@ -118,7 +118,8 @@ class Game {
     this.currentLevelTime -= dt;
 
     if (this.player.checkCollision(this.truck, this.taxi, this.car)) {
-      this.currentGameState = GAME_STATE.GAME_OVER;
+      this.player.setState(Player.EXPLODING);
+      setTimeout(() => this.currentGameState = GAME_STATE.GAME_OVER, 1000);
     }
 
     Game.checkCollision(this.car, this.truck);

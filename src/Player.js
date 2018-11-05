@@ -2,11 +2,10 @@ import SpriteImage from "./SpriteImage";
 import collision from "./collision";
 import SpriteAnimation from "./SpriteAnimation";
 
-const RUNNING = "running";
-const EXPLODING = "exploding";
-
 class Player {
   static maxSpeed = 0.5;
+  static RUNNING = "running";
+  static EXPLODING = "exploding";
 
   constructor(ctx, inputStates) {
     this.ctx = ctx;
@@ -16,7 +15,7 @@ class Player {
       y: 0
     };
     this.scale = 0.7;
-    this.state = RUNNING;
+    this.state = Player.RUNNING;
   }
 
   get height() {
@@ -25,6 +24,10 @@ class Player {
 
   get width() {
     return this.sprite.width * this.scale;
+  }
+
+  setState(state) {
+    this.state = state;
   }
 
   setImage(img, ...args) {
@@ -54,7 +57,7 @@ class Player {
 
   update(dt) {
     switch (this.state) {
-      case RUNNING:
+      case Player.RUNNING:
         if (this.inputStates.left) {
           this.position.x += -Player.maxSpeed * dt;
         }
@@ -69,9 +72,9 @@ class Player {
           this.scale
         );
         break;
-        
-      case EXPLODING:
-        this.explosion.draw(this.ctx, 100, 100);
+
+      case Player.EXPLODING:
+        this.explosion.draw(this.ctx, this.position.x, this.position.y );
         break;
 
       default:

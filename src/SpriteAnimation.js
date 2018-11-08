@@ -68,6 +68,10 @@ class SpriteAnimation {
       this.delayBetweenFrames = 1000 / nb;
     };
   }
+
+  reset() {
+    this.currentFrame = 0;
+  }
 }
 
 export default SpriteAnimation

@@ -27,7 +27,11 @@ class Player {
   }
 
   setState(state) {
-    this.state = state;
+    if(this.state !== state ) {
+      this.state = state;
+
+      this.explosion.reset();
+    }
   }
 
   setImage(img, ...args) {

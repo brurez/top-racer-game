@@ -97,6 +97,8 @@ class Game {
     this.truck.speed.y = INITIAL_SPEED.TRUCK;
     this.taxi.speed.y = INITIAL_SPEED.TAXI;
     this.car.speed.y = INITIAL_SPEED.CAR;
+
+    this.player.setState(Player.RUNNING);
   }
 
   clearCanvas() {

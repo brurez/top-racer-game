@@ -12,6 +12,10 @@ self.__precacheManifest = [
     "url": "/top-racer-game/static/media/road.a03ad39a.png"
   },
   {
+    "revision": "4310b53845b066f1bd7419726a1d787d",
+    "url": "/top-racer-game/static/media/exp2_0.4310b538.png"
+  },
+  {
     "revision": "a39891fafd91f7634321aea9f850d1d0",
     "url": "/top-racer-game/static/media/Car.a39891fa.png"
   },
@@ -24,15 +28,15 @@ self.__precacheManifest = [
     "url": "/top-racer-game/static/js/runtime~main.8791cae5.js"
   },
   {
-    "revision": "de9c6f18127040fff2ca",
-    "url": "/top-racer-game/static/js/main.de9c6f18.chunk.js"
+    "revision": "c32d84c0180ea2263a05",
+    "url": "/top-racer-game/static/js/main.c32d84c0.chunk.js"
   },
   {
-    "revision": "de9c6f18127040fff2ca",
-    "url": "/top-racer-game/static/css/main.e5c1c75d.chunk.css"
+    "revision": "c32d84c0180ea2263a05",
+    "url": "/top-racer-game/static/css/main.6f0e279e.chunk.css"
   },
   {
-    "revision": "cebb3b0b260548a234977d615fb425ca",
+    "revision": "04b48d6724e93ea4f78b13db6c3d91b8",
     "url": "/top-racer-game/index.html"
   }
 ];

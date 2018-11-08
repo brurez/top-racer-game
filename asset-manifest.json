@@ -1,16 +1,17 @@
 {
-  "main.css": "/top-racer-game/static/css/main.e5c1c75d.chunk.css",
-  "main.js": "/top-racer-game/static/js/main.de9c6f18.chunk.js",
-  "main.js.map": "/top-racer-game/static/js/main.de9c6f18.chunk.js.map",
+  "main.css": "/top-racer-game/static/css/main.6f0e279e.chunk.css",
+  "main.js": "/top-racer-game/static/js/main.c32d84c0.chunk.js",
+  "main.js.map": "/top-racer-game/static/js/main.c32d84c0.chunk.js.map",
   "runtime~main.js": "/top-racer-game/static/js/runtime~main.8791cae5.js",
   "runtime~main.js.map": "/top-racer-game/static/js/runtime~main.8791cae5.js.map",
   "static/media/Audi.png": "/top-racer-game/static/media/Audi.5498a290.png",
   "static/media/road.png": "/top-racer-game/static/media/road.a03ad39a.png",
   "static/media/taxi.png": "/top-racer-game/static/media/taxi.b2ca867e.png",
   "static/media/Car.png": "/top-racer-game/static/media/Car.a39891fa.png",
+  "static/media/exp2_0.png": "/top-racer-game/static/media/exp2_0.4310b538.png",
   "static/media/truck.png": "/top-racer-game/static/media/truck.0c526a94.png",
-  "static/css/main.e5c1c75d.chunk.css.map": "/top-racer-game/static/css/main.e5c1c75d.chunk.css.map",
+  "static/css/main.6f0e279e.chunk.css.map": "/top-racer-game/static/css/main.6f0e279e.chunk.css.map",
   "index.html": "/top-racer-game/index.html",
-  "precache-manifest.6f3b0b3be1368b8e6aa47c4c2c59b3c4.js": "/top-racer-game/precache-manifest.6f3b0b3be1368b8e6aa47c4c2c59b3c4.js",
+  "precache-manifest.4de8ff7d8519932fcc8c64c1d3310587.js": "/top-racer-game/precache-manifest.4de8ff7d8519932fcc8c64c1d3310587.js",
   "service-worker.js": "/top-racer-game/service-worker.js"
 }

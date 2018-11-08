@@ -109,6 +109,10 @@ class Game {
   running(dt) {
     this.clearCanvas();
 
+    if(this.nextRoadSpeed < this.road.speed.y) {
+      this.road.accel.y = 0;
+    }
+
     this.road.update(dt);
     this.player.update(dt);
     this.truck.update(dt);
@@ -189,10 +193,13 @@ class Game {
 
     const difficult = 1.2;
 
-    this.road.speed.y *= difficult;
+    this.nextRoadSpeed = this.road.speed.y * difficult;
+    this.road.accel.y = 0.00001;
+
     this.truck.speed.y *= difficult;
     this.car.speed.y *= difficult;
     this.taxi.speed.y *= difficult;
+
   }
 
   startNewGame() {

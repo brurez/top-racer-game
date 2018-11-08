@@ -10,6 +10,12 @@ class Road {
       x: 0,
       y: 0.5,
     };
+
+    this.accel = {
+      x: 0,
+      y: 0,
+    };
+
     this.totalSeconds = 0;
   }
 
@@ -21,6 +27,11 @@ class Road {
     const { width: cW } = this.ctx.canvas;
     const { height: sH, width: sW } = this.sprite;
     this.totalSeconds += dt;
+
+    if(this.accel.y !== 0) {
+      this.speed.y += this.accel.y * dt;
+    }
+
     const numImages = Math.ceil(cW / sW) + 1;
     const yPos = this.totalSeconds * this.speed.y % sH;
 

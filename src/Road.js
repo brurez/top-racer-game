@@ -28,10 +28,8 @@ class Road {
     const { height: sH, width: sW } = this.sprite;
     this.totalSeconds += dt;
 
-    if(this.accel.y !== 0) {
-      this.speed.y += this.accel.y * dt;
-    }
-
+    this.speed.y += this.accel.y * dt;
+    
     const numImages = Math.ceil(cW / sW) + 1;
     const yPos = this.totalSeconds * this.speed.y % sH;
 

@@ -94,6 +94,8 @@ class Game {
     this.car.moveToStartPosition(700);
 
     this.road.speed.y = INITIAL_SPEED.ROAD;
+    this.road.accel.y = 0;
+
     this.truck.speed.y = INITIAL_SPEED.TRUCK;
     this.taxi.speed.y = INITIAL_SPEED.TAXI;
     this.car.speed.y = INITIAL_SPEED.CAR;
@@ -206,6 +208,7 @@ class Game {
     this.currentLevelTime = TIME_BETWEEN_LEVELS;
     this.currentLevel = 1;
     this.currentGameState = GAME_STATE.RUNNING;
+    this.nextRoadSpeed = INITIAL_SPEED.ROAD;
     this.resetEntities();
   }
 

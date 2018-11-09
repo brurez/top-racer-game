@@ -11,7 +11,7 @@ import truck from "./images/Topdown_vehicle_sprites_pack/truck.png";
 import road from "./images/road.png";
 import taxi from "./images/Topdown_vehicle_sprites_pack/taxi.png";
 import car from "./images/Topdown_vehicle_sprites_pack/Car.png";
-import explosion from './images/exp2_0.png';
+import explosion from "./images/exp2_0.png";
 
 const TIME_BETWEEN_LEVELS = 5000;
 
@@ -49,7 +49,9 @@ class Game {
   }
 
   loadAssets(cb) {
-    Load.images(audi, road, truck, taxi, car, explosion).then(images => cb(images));
+    Load.images(audi, road, truck, taxi, car, explosion).then(images =>
+      cb(images)
+    );
   }
 
   start(canvasElement) {
@@ -65,6 +67,24 @@ class Game {
 
     this.player = new Player(this.ctx, this.inputStates);
     this.road = new Road(this.ctx, this.inputStates);
+
+    this.roadLimitLeft = {
+      height: this.canvas.height,
+      width: 1,
+      position: {
+        x: 90,
+        y: 0
+      }
+    };
+
+    this.roadLimitRight = {
+      height: this.canvas.height,
+      width: 1,
+      position: {
+        x: this.canvas.width - 90,
+        y: 0
+      }
+    };
 
     this.truck = new Vehicle(this.ctx);
     this.taxi = new Vehicle(this.ctx);
@@ -111,7 +131,7 @@ class Game {
   running(dt) {
     this.clearCanvas();
 
-    if(this.nextRoadSpeed < this.road.speed.y) {
+    if (this.nextRoadSpeed < this.road.speed.y) {
       this.road.accel.y = 0;
     }
 
@@ -125,9 +145,17 @@ class Game {
 
     this.currentLevelTime -= dt;
 
-    if (this.player.checkCollision(this.truck, this.taxi, this.car)) {
+    if (
+      this.player.checkCollision(
+        this.truck,
+        this.taxi,
+        this.car,
+        this.roadLimitLeft,
+        this.roadLimitRight
+      )
+    ) {
       this.player.setState(Player.EXPLODING);
-      setTimeout(() => this.currentGameState = GAME_STATE.GAME_OVER, 1000);
+      setTimeout(() => (this.currentGameState = GAME_STATE.GAME_OVER), 1000);
     }
 
     Game.checkCollision(this.car, this.truck);
@@ -201,7 +229,6 @@ class Game {
     this.truck.speed.y *= difficult;
     this.car.speed.y *= difficult;
     this.taxi.speed.y *= difficult;
-
   }
 
   startNewGame() {

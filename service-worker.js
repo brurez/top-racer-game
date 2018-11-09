@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/top-racer-game/precache-manifest.4de8ff7d8519932fcc8c64c1d3310587.js"
+  "/top-racer-game/precache-manifest.a2881d5434f16582f0758c619a44e0ae.js"
 );
 
 workbox.clientsClaim();

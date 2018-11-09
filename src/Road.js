@@ -29,7 +29,7 @@ class Road {
     this.totalSeconds += dt;
 
     this.speed.y += this.accel.y * dt;
-    
+
     const numImages = Math.ceil(cW / sW) + 1;
     const yPos = this.totalSeconds * this.speed.y % sH;
 

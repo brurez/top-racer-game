@@ -6,7 +6,7 @@ class Vehicle {
     this.ctx = ctx;
     this.scale = 0.9;
     this.speed = {
-      x: 0,
+      x: 0.002,
       y: 0.1
     };
   }
@@ -27,11 +27,22 @@ class Vehicle {
     const sOff = startOffset || this.startOffset;
     this.lane = Vehicle.getRandomInt(0, Road.LANE_CENTER.length);
     const { height: sH, width: sW } = this.sprite;
-    this.position = { x: Road.LANE_CENTER[this.lane] - sW / 2, y: -(sH + sOff) };
+    this.position = {
+      x: Road.LANE_CENTER[this.lane] - sW / 2,
+      y: -(sH + sOff)
+    };
     this.startOffset = sOff;
   }
 
   update(dt) {
+    const laneX = Road.LANE_CENTER[this.lane];
+    const { width: sW } = this.sprite;
+
+    if (Math.abs(laneX - sW / 2 - this.position.x) > 20) {
+      this.speed.x = -this.speed.x;
+    }
+
+    this.position.x += this.speed.x * dt;
     this.position.y += this.speed.y * dt;
     this.sprite.draw(this.ctx, this.position.x, this.position.y, this.scale);
 

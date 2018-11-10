@@ -1,4 +1,4 @@
-#Top Racer Game
+# Top Racer Game
 
 Top down racing game made with vanilla Javascript using
 HTML5 APIs.

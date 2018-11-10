@@ -136,10 +136,10 @@ class Game {
     }
 
     this.road.update(dt);
-    this.player.update(dt);
     this.truck.update(dt);
     this.taxi.update(dt);
     this.car.update(dt);
+    this.player.update(dt);
 
     this.displayScore();
 
